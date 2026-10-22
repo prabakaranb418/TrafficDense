@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="TrafficDense - Intelligent traffic congestion prediction system">
+
+    <title>TrafficDense | Traffic Prediction</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <!-- Background -->
+    <div class="page-bg">
+        <div class="orb orb-one"></div>
+        <div class="orb orb-two"></div>
+        <div class="orb orb-three"></div>
+    </div>
+
+
+    <!-- Navigation -->
+    <header class="navbar">
+
+        <a href="#home" class="brand">
+            <span class="brand-icon">TD</span>
+
+            <span>
+                Traffic<span>Dense</span>
+            </span>
+        </a>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#predictor">Predict</a>
+            <a href="#how-it-works">How it works</a>
+        </nav>
+
+        <a href="#predictor" class="nav-button">
+            Try Predictor <span>→</span>
+        </a>
+
+    </header>
+
+
+    <main>
+
+        <!-- HERO SECTION -->
+        <section id="home" class="hero section reveal">
+
+            <div class="hero-content">
+
+                <div class="eyebrow">
+                    <span class="pulse-dot"></span>
+                    AI-POWERED TRAFFIC INTELLIGENCE
+                </div>
+
+                <h1>
+                    Predict traffic
+                    <br>
+                    <span>before it gets worse.</span>
+                </h1>
+
+                <p class="hero-text">
+                    TrafficDense uses machine learning to analyze road and
+                    traffic conditions and classify the current congestion
+                    level in seconds.
+                </p>
+
+                <div class="hero-actions">
+
+                    <a href="#predictor"
+                       class="primary-button ripple-target">
+
+                        <span>Start Prediction</span>
+
+                        <span class="button-arrow">→</span>
+
+                    </a>
+
+                    <a href="#how-it-works"
+                       class="secondary-button">
+
+                        Explore system ↓
+
+                    </a>
+
+                </div>
+
+
+                <div class="hero-stats">
+
+                    <div>
+                        <strong>4</strong>
+                        <span>Traffic levels</span>
+                    </div>
+
+                    <div>
+                        <strong>6</strong>
+                        <span>Input features</span>
+                    </div>
+
+                    <div>
+                        <strong>XGBoost</strong>
+                        <span>ML model</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ANIMATED TRAFFIC CARD -->
+            <div class="hero-visual">
+
+                <div class="traffic-card glass-card">
+
+                    <div class="card-top">
+
+                        <span>LIVE ANALYSIS</span>
+
+                        <span class="status">
+                            <i></i> READY
+                        </span>
+
+                    </div>
+
+
+                    <div class="road-scene">
+
+                        <div class="road-lines"></div>
+
+                        <div class="car car-a"></div>
+                        <div class="car car-b"></div>
+                        <div class="car car-c"></div>
+                        <div class="car car-d"></div>
+
+                    </div>
+
+
+                    <div class="visual-footer">
+
+                        <div>
+
+                            <small>TRAFFIC STATUS</small>
+
+                            <strong>AI READY</strong>
+
+                        </div>
+
+                        <div class="mini-ring">
+                            AI
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="floating-chip chip-one">
+                    ⚡ Fast prediction
+                </div>
+
+                <div class="floating-chip chip-two">
+                    ◉ 4 congestion classes
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- PREDICTION SECTION -->
+        <section id="predictor"
+                 class="predictor section reveal">
+
+            <div class="section-heading">
+
+                <div class="eyebrow">
+                    PREDICTION ENGINE
+                </div>
+
+                <h2>
+                    Check the traffic level
+                </h2>
+
+                <p>
+                    Enter the current road conditions and let TrafficDense
+                    classify the congestion.
+                </p>
+
+            </div>
+
+
+            <div class="predictor-layout">
+
+
+                <!-- FORM -->
+                <form action="/predict"
+                      method="POST"
+                      class="prediction-form glass-card"
+                      id="predictionForm">
+
+
+                    <div class="form-header">
+
+                        <div>
+
+                            <span class="form-kicker">
+                                INPUT DATA
+                            </span>
+
+                            <h3>
+                                Traffic conditions
+                            </h3>
+
+                        </div>
+
+                        <span class="step-badge">
+                            01 / 06
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="form-grid">
+
+
+                        <!-- ROAD ID -->
+                        <div class="field">
+
+                            <label for="road_seg_id">
+                                Road Segment ID
+                            </label>
+
+                            <div class="input-wrap">
+
+                                <span class="input-icon">
+                                    ⌁
+                                </span>
+
+                                <input
+                                    type="number"
+                                    id="road_seg_id"
+                                    name="road_seg_id"
+                                    min="0"
+                                    placeholder="e.g. 89"
+                                    required
+                                >
+
+                            </div>
+
+                            <small>
+                                Encoded road segment identifier
+                            </small>
+
+                        </div>
+
+
+
+                        <!-- HOUR -->
+                        <div class="field">
+
+                            <label for="hour">
+                                Hour
+                            </label>
+
+                            <div class="input-wrap">
+
+                                <span class="input-icon">
+                                    ◷
+                                </span>
+
+                                <input
+                                    type="number"
+                                    id="hour"
+                                    name="hour"
+                                    min="0"
+                                    max="23"
+                                    placeholder="0 - 23"
+                                    required
+                                >
+
+                            </div>
+
+                            <small>
+                                24-hour format
+                            </small>
+
+                        </div>
+
+
+
+                        <!-- MINUTE -->
+                        <div class="field">
+
+                            <label for="minute">
+                                Minute
+                            </label>
+
+                            <div class="input-wrap">
+
+                                <span class="input-icon">
+                                    ◷
+                                </span>
+
+                                <input
+                                    type="number"
+                                    id="minute"
+                                    name="minute"
+                                    min="0"
+                                    max="59"
+                                    placeholder="0 - 59"
+                                    required
+                                >
+
+                            </div>
+
+                            <small>
+                                Current minute
+                            </small>
+
+                        </div>
+
+
+
+                        <!-- SPEED -->
+                        <div class="field">
+
+                            <label for="avg_speed_kmph">
+                                Average Speed
+                            </label>
+
+                            <div class="input-wrap">
+
+                                <span class="input-icon">
+                                    ↗
+                                </span>
+
+                                <input
+                                    type="number"
+                                    id="avg_speed_kmph"
+                                    name="avg_speed_kmph"
+                                    min="0"
+                                    step="0.01"
+                                    placeholder="e.g. 42.50"
+                                    required
+                                >
+
+                                <span class="unit">
+                                    km/h
+                                </span>
+
+                            </div>
+
+                            <small>
+                                Average vehicle speed
+                            </small>
+
+                        </div>
+
+
+
+                        <!-- QUEUE -->
+                        <div class="field">
+
+                            <label for="queue_length_veh">
+                                Queue Length
+                            </label>
+
+                            <div class="input-wrap">
+
+                                <span class="input-icon">
+                                    ≋
+                                </span>
+
+                                <input
+                                    type="number"
+                                    id="queue_length_veh"
+                                    name="queue_length_veh"
+                                    min="0"
+                                    step="0.01"
+                                    placeholder="e.g. 35.00"
+                                    required
+                                >
+
+                                <span class="unit">
+                                    vehicles
+                                </span>
+
+                            </div>
+
+                            <small>
+                                Estimated queue length
+                            </small>
+
+                        </div>
+
+
+
+                        <!-- DENSITY -->
+                        <div class="field">
+
+                            <label for="density_veh_per_km">
+                                Traffic Density
+                            </label>
+
+                            <div class="input-wrap">
+
+                                <span class="input-icon">
+                                    ▦
+                                </span>
+
+                                <input
+                                    type="number"
+                                    id="density_veh_per_km"
+                                    name="density_veh_per_km"
+                                    min="0"
+                                    step="0.01"
+                                    placeholder="e.g. 68.40"
+                                    required
+                                >
+
+                                <span class="unit">
+                                    veh/km
+                                </span>
+
+                            </div>
+
+                            <small>
+                                Vehicles per kilometre
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- PREDICT BUTTON -->
+                    <button
+                        type="submit"
+                        class="predict-button ripple-target"
+                        id="predictButton">
+
+                        <span class="button-text">
+                            Predict Traffic Level
+                        </span>
+
+                        <span class="loader"></span>
+
+                        <span class="button-arrow">
+                            →
+                        </span>
+
+                    </button>
+
+
+                    <p class="form-note">
+                        Your values are processed by the Flask prediction endpoint.
+                    </p>
+
+                </form>
+
+
+
+                <!-- RESULT PANEL -->
+                <aside class="result-panel glass-card
+                    {% if prediction %}has-result{% endif %}">
+
+
+                    {% if prediction %}
+
+
+                        <div class="result-content {{ tier }}">
+
+                            <div class="result-icon">
+
+                                {% if tier == 'freeflow' %}
+                                    ✓
+                                {% elif tier == 'moderate' %}
+                                    ≈
+                                {% elif tier == 'heavy' %}
+                                    ⚠
+                                {% else %}
+                                    !
+                                {% endif %}
+
+                            </div>
+
+
+                            <span class="result-label">
+                                PREDICTION RESULT
+                            </span>
+
+
+                            <h3>
+                                {{ prediction }}
+                            </h3>
+
+
+                            <div class="result-meter">
+
+                                <div class="meter-track">
+
+                                    <span class="meter-fill"></span>
+
+                                </div>
+
+
+                                <div class="meter-labels">
+
+                                    <span>Free-flow</span>
+                                    <span>Moderate</span>
+                                    <span>Heavy</span>
+                                    <span>Gridlock</span>
+
+                                </div>
+
+                            </div>
+
+
+                            <p class="result-message">
+
+                                {% if tier == 'freeflow' %}
+
+                                    Traffic conditions are currently
+                                    classified as free-flow.
+
+                                {% elif tier == 'moderate' %}
+
+                                    Traffic is showing a moderate
+                                    level of congestion.
+
+                                {% elif tier == 'heavy' %}
+
+                                    Heavy congestion is detected
+                                    on this road segment.
+
+                                {% else %}
+
+                                    The model has classified the
+                                    conditions as gridlock.
+
+                                {% endif %}
+
+                            </p>
+
+
+                            <a href="#predictor"
+                               class="again-button">
+
+                                Run another prediction ↻
+
+                            </a>
+
+                        </div>
+
+
+                    {% else %}
+
+
+                        <div class="empty-result">
+
+                            <div class="radar">
+
+                                <span></span>
+                                <span></span>
+                                <span></span>
+
+                                <div>AI</div>
+
+                            </div>
+
+
+                            <span class="result-label">
+                                WAITING FOR INPUT
+                            </span>
+
+
+                            <h3>
+                                Your prediction
+                                <br>
+                                will appear here.
+                            </h3>
+
+
+                            <p>
+                                Complete the six fields and click
+                                the prediction button.
+                            </p>
+
+                        </div>
+
+
+                    {% endif %}
+
+                </aside>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- HOW IT WORKS -->
+        <section id="how-it-works"
+                 class="how section reveal">
+
+            <div class="section-heading">
+
+                <div class="eyebrow">
+                    HOW IT WORKS
+                </div>
+
+                <h2>
+                    From road data to prediction
+                </h2>
+
+                <p>
+                    A simple interface powered by your trained
+                    TrafficDense XGBoost model.
+                </p>
+
+            </div>
+
+
+            <div class="process-grid">
+
+
+                <article class="process-card glass-card">
+
+                    <span class="process-number">
+                        01
+                    </span>
+
+                    <div class="process-icon">
+                        ⌨
+                    </div>
+
+                    <h3>
+                        Enter conditions
+                    </h3>
+
+                    <p>
+                        Provide road segment, time, speed,
+                        queue length and traffic density.
+                    </p>
+
+                </article>
+
+
+
+                <article class="process-card glass-card">
+
+                    <span class="process-number">
+                        02
+                    </span>
+
+                    <div class="process-icon">
+                        ⚙
+                    </div>
+
+                    <h3>
+                        Model analysis
+                    </h3>
+
+                    <p>
+                        Flask sends the six features to the
+                        saved TrafficDense ML model.
+                    </p>
+
+                </article>
+
+
+
+                <article class="process-card glass-card">
+
+                    <span class="process-number">
+                        03
+                    </span>
+
+                    <div class="process-icon">
+                        ◉
+                    </div>
+
+                    <h3>
+                        Traffic class
+                    </h3>
+
+                    <p>
+                        The model returns one of four traffic
+                        classes for the entered conditions.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <div class="footer-brand">
+            Traffic<span>Dense</span>
+        </div>
+
+        <p>
+            Intelligent traffic congestion prediction system
+        </p>
+
+        <span>
+            Built with Flask + XGBoost
+        </span>
+
+    </footer>
+
+
+
+    <!-- BACK TO TOP -->
+    <button
+        class="scroll-top"
+        id="scrollTop"
+        aria-label="Back to top">
+
+        ↑
+
+    </button>
+
+
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>
